@@ -6,11 +6,13 @@ package com.ntl.topjobs.jobapplication.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ntl.topjobs.jobapplication.JobApplication;
+
+
 import com.ntl.topjobs.jobapplication.bean.JobApplicationBean;
 import com.ntl.topjobs.jobapplication.bean.ShortlistApplicants;
 import com.ntl.topjobs.jobapplication.dao.JobApplicationDao;
@@ -104,6 +106,20 @@ public class ServiceForJobApplication {
 		String str = Integer.toString(x);
 		char a[] = { str.charAt(0), str.charAt(1), str.charAt(2), str.charAt(3) };
 		return (new String(a));
+	}
+
+	public JobApplicationBean deleteJobById(String jobId) {
+		JobApplicationBean jobobj=null;
+		Optional<JobApplicationBean> optionals = jobApplicationDao.findById(jobId);
+	      
+		
+		if(optionals.isPresent()){
+             jobApplicationDao.deleteById(jobId);
+             jobobj= optionals.get();
+		}
+	
+		return jobobj;
+		
 	}
 
 }

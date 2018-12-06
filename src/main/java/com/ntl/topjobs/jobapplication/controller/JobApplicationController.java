@@ -6,6 +6,7 @@ package com.ntl.topjobs.jobapplication.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,6 +82,13 @@ public class JobApplicationController {
 	@PutMapping("/applyForJob/{resumeId}/{jobId}")
 	public boolean addResumeToJobApplication(@PathVariable("resumeId") String resumeId,@PathVariable("jobId")String jobId) {
 		return serviceForJobApplication.applyJob(resumeId,jobId);
+	}
+	
+	@DeleteMapping("/deleteJob/{jobId}")
+	public ResponseEntity<Object> deleteJobById(@PathVariable String jobId)
+	{
+		serviceForJobApplication.deleteJobById(jobId);
+		return ResponseEntity.noContent().build();
 	}
 	
 }
