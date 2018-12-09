@@ -50,7 +50,7 @@ public class JobApplicationController {
 		return proxy.getResumes(list);
 	}
 	
-	@GetMapping("/employer/addShortlist/{seekerId}/{jobId}/{empId}")
+	@GetMapping("/employer/addShortlist/{resumeId}/{jobId}/{empId}")
 	public ShortlistApplicants addShortlist(@PathVariable("seekerId") String seekId,@PathVariable("jobId") String jobId,@PathVariable("empId") String empId) {
 		return serviceForJobApplication.addApplicants(seekId,jobId,empId);
 	}
