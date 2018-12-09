@@ -92,11 +92,19 @@ public class ServiceForJobApplication {
 	}
 	public boolean applyJob(String resumeId,String jobId) {
 		JobApplicationBean job=jobApplicationDao.findById(jobId).get();
-		String result=""+job.getApplicants()+","+resumeId;
+		String result;int c;
+		try {
+			c=job.getApplicants().split(",").length;
+			result=""+job.getApplicants()+","+resumeId;			
+		}catch(NullPointerException err) {
+			result=""+resumeId;
+			c=0;
+		}
+		System.out.println(result);
 		job.setApplicants(result);
-		if(job.getApplicants()!=null) {
+		jobApplicationDao.saveAndFlush(job);
+		if(job.getApplicants().split(",").length==c+1) {
 			return true;
-			
 		}
 		return false;
 		
